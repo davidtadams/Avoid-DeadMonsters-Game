@@ -29,6 +29,14 @@ monsterImage.onload = function() {
 };
 monsterImage.src = "assets/monster.png";
 
+// set up monster2 image
+var deadMonsterReady = false;
+var deadMonsterImage = new Image();
+deadMonsterImage.onload = function() {
+  deadMonsterReady = true;
+};
+deadMonsterImage.src = "assets/deadMonster.png";
+
 // game objects
 var hero = {
   speed: 256, //movement in pixels per second
@@ -40,6 +48,12 @@ var monster = {
   x: 0,
   y: 0
 };
+
+var deadMonsters = [];
+function DeadMonster(){
+  this.x = 32 + (Math.random() * (canvas.width - 96));
+  this.y = 32 + (Math.random() * (canvas.height - 96));
+}
 
 var monstersCaught = 0;
 
@@ -59,6 +73,9 @@ var reset = function() {
   // place monster randomly on the screen
   monster.x = 32 + (Math.random() * (canvas.width - 96));
   monster.y = 32 + (Math.random() * (canvas.height - 96));
+
+  // add a dead monster
+  deadMonsters.push(new DeadMonster());
 }
 
 // update game objects
@@ -106,12 +123,20 @@ var render = function() {
     ctx.drawImage(monsterImage, monster.x, monster.y);
   }
 
+  if (deadMonsterReady) {
+    for (var i in deadMonsters) {
+      ctx.drawImage(deadMonsterImage, deadMonsters[i].x, deadMonsters[i].y);
+    }
+  }
+
+
+
   // score
   ctx.fillStyle = "rgb(250, 250, 250)";
   ctx.font = "24px Helvetica";
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
-  ctx.fillText("Monsters caught: " + monstersCaught, 32, 32);
+  ctx.fillText("Monsters caught: " + monstersCaught, 32, 0);
 };
 
 // main game loop
