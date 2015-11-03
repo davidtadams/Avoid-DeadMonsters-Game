@@ -5,6 +5,30 @@ canvas.width = 512;
 canvas.height = 480;
 document.body.appendChild(canvas);
 
+// set up background image
+var bgReady = false;
+var bgImage = new Image();
+bgImage.onload = function () {
+  bgReady = true;
+};
+bgImage.src = "assets/background.png";
+
+// set up hero image
+var heroReady = false;
+var heroImage = new Image();
+heroImage.onload = function() {
+  heroReady = true;
+};
+heroImage.src = "assets/hero.png";
+
+// set up monster image
+var monsterReady = false;
+var monsterImage = new Image();
+monsterImage.onload = function() {
+  monsterReady = true;
+};
+monsterImage.src = "assets/monster.png";
+
 // game objects
 var hero = {
   speed: 256, //movement in pixels per second
@@ -106,6 +130,10 @@ var main = function() {
   //request again
   requestAnimationFrame(main);
 }
+
+// Cross-browser support for requestAnimationFrame
+var w = window;
+requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
 // play game now
 var then = Date.now();
