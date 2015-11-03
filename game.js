@@ -56,12 +56,9 @@ addEventListener("keyup", function(e) {
 
 // reset game when player catches a monster
 var reset = function() {
-  hero.x = canvas.width / 2;
-  hero.y = canvas.height / 2;
-
   // place monster randomly on the screen
-  monster.x = 32 + (Math.random() * (canvas.width - 64));
-  monster.y = 32 + (Math.random() * (canvas.height - 64));
+  monster.x = 32 + (Math.random() * (canvas.width - 96));
+  monster.y = 32 + (Math.random() * (canvas.height - 96));
 }
 
 // update game objects
@@ -86,11 +83,11 @@ var update = function(modifier) {
   // are the monster and hero touching?
   if (
     hero.x <= (monster.x + 32)
-    && monster.x <= (hero.x + 32)
     && hero.y <= (monster.y + 32)
+    && monster.x <= (hero.x + 32)
     && monster.y <= (hero.y + 32)
   ) {
-    ++monstersCaught;
+    monstersCaught++;
     reset();
   }
 }
@@ -131,11 +128,10 @@ var main = function() {
   requestAnimationFrame(main);
 }
 
-// Cross-browser support for requestAnimationFrame
-var w = window;
-requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
-
 // play game now
 var then = Date.now();
+// Start hero in the middle
+hero.x = canvas.width / 2;
+hero.y = canvas.height / 2;
 reset();
 main();
