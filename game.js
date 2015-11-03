@@ -66,19 +66,19 @@ var reset = function() {
 
 // update game objects
 var update = function(modifier) {
-  if (38 in keysDown) {
+  if (38 in keysDown && hero.y > 32) {
     //player is holding up
     hero.y -= hero.speed * modifier;
   }
-  if (40 in keysDown) {
+  if (40 in keysDown && hero.y < canvas.height - 64) {
     //player holding down
     hero.y += hero.speed * modifier;
   }
-  if (37 in keysDown) {
+  if (37 in keysDown && hero.x > 32) {
     //player holding left
     hero.x -= hero.speed * modifier;
   }
-  if (39 in keysDown) {
+  if (39 in keysDown && hero.x < canvas.width - 64) {
     //player holding right
     hero.x += hero.speed * modifier;
   }
