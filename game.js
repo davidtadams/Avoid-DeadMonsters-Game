@@ -75,7 +75,9 @@ var reset = function() {
   monster.y = 32 + (Math.random() * (canvas.height - 96));
 
   // add a dead monster
-  deadMonsters.push(new DeadMonster());
+  if (monstersCaught > 0) {
+    deadMonsters.push(new DeadMonster());
+  }
 };
 
 // reset game back to normal conditions
