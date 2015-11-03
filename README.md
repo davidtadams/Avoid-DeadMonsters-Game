@@ -1,4 +1,4 @@
-# game-htmlcanvas-practice
+# Avoid-DeadMonsters-Game
 A simple HTML5 game I created to practice with canvas and javascript.
 
 The goal of the game is to capture as many monsters as possible. Every time you capture a monster, it will come back as a dead monster on the game board. If you run into a dead monster, you will die and the game will end and start over, so don't do that.
