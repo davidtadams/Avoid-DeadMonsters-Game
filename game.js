@@ -76,7 +76,20 @@ var reset = function() {
 
   // add a dead monster
   deadMonsters.push(new DeadMonster());
-}
+};
+
+// reset game back to normal conditions
+var hardReset = function() {
+  // clear out dead monsters array and monsters caught counter
+  deadMonsters = [];
+  monstersCaught = 0;
+
+  // put hero back in the middle
+  hero.x = canvas.width / 2;
+  hero.y = canvas.height / 2;
+
+  reset();
+};
 
 // update game objects
 var update = function(modifier) {
@@ -95,6 +108,20 @@ var update = function(modifier) {
   if (39 in keysDown && hero.x < canvas.width - 64) {
     //player holding right
     hero.x += hero.speed * modifier;
+  }
+
+  // is the hero touching a dead monster?
+  for (var i in deadMonsters) {
+    if (
+      hero.x <= (deadMonsters[i].x + 32)
+      && hero.y <= (deadMonsters[i].y + 32)
+      && deadMonsters[i].x <= (hero.x + 32)
+      && deadMonsters[i].y <= (hero.y + 32)
+    ) {
+      //end game
+      hardReset();
+      break;
+    }
   }
 
   // are the monster and hero touching?
@@ -128,8 +155,6 @@ var render = function() {
       ctx.drawImage(deadMonsterImage, deadMonsters[i].x, deadMonsters[i].y);
     }
   }
-
-
 
   // score
   ctx.fillStyle = "rgb(250, 250, 250)";
